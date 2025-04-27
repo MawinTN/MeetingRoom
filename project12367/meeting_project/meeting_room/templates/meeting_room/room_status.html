@@ -1,0 +1,31 @@
+{% extends 'meeting_room/base.html' %}
+
+{% block title %}สถานะห้องประชุม{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">สถานะห้องประชุม</h2>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ชื่อห้อง</th>
+                <th>สถานะ</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for room in room_status_list %}
+            <tr>
+                <td>{{ room.room_name }}</td>
+                <td>
+                    {% if room.status == 'ว่าง' %}
+                        <span class="badge bg-success">{{ room.status }}</span>
+                    {% else %}
+                        <span class="badge bg-danger">{{ room.status }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

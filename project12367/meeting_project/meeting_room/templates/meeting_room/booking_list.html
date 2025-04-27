@@ -1,0 +1,77 @@
+{% extends 'meeting_room/base.html' %}
+
+{% block title %}รายการจองห้องประชุม{% endblock %}
+
+{% block content %}
+<!-- ส่วนแกลเลอรีรูปภาพ -->
+<div class="container mt-4">
+    <h2 class="text-center mb-4">รูปภาพตัวอย่างห้องประชุม</h2>
+    <div class="row">
+        <!-- รูปภาพที่ 1 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://ntproperty.ntplc.co.th/wp-content/uploads/2023/06/ntr32.jpg" class="card-img-top" alt="รูปภาพที่ 1">
+                <div class="card-body">
+                    <h5 class="card-title">Room 1</h5>
+                    <p class="card-text">ห้องประชุมขนาดใหญ่ รองรับได้30คน</p>
+                </div>
+            </div>
+        </div>
+        <!-- รูปภาพที่ 2 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://www.dharmniti.co.th/wp-content/uploads/2022/05/dharmniti-meeting-room-203-3-1024x683.jpg" class="card-img-top" alt="รูปภาพที่ 2">
+                <div class="card-body">
+                    <h5 class="card-title">Room 2</h5>
+                    <p class="card-text">ห้องประชุมขนาดกลาง รองรับได้15คน</p>
+                </div>
+            </div>
+        </div>
+        <!-- รูปภาพที่ 3 -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <img src="https://digitoryspace.com/wp-content/uploads/2022/06/Meeting-Room-A-768x433.jpg" class="card-img-top" alt="รูปภาพที่ 3">
+                <div class="card-body">
+                    <h5 class="card-title">Room 3</h5>
+                    <p class="card-text">ห้องประชุมขนาดเล็ก รองรับได้5คน</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ตารางรายการจอง -->
+<table class="table table-bordered table-striped mt-4">
+    <thead class="table-dark"> <!-- เพิ่ม class table-dark เพื่อให้หัวตารางเป็นสีดำ -->
+        <tr>
+            <th>#</th>
+            <th>ชื่อผู้จอง</th>
+            <th>ชื่อห้อง</th>
+            <th>วันที่จอง</th>
+            <th>เวลาเริ่มต้น</th>
+            <th>เวลาสิ้นสุด</th>
+            <th>จัดการ</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for booking in bookings %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ booking.name }}</td>
+            <td>{{ booking.room_name }}</td>
+            <td>{{ booking.booking_date }}</td>
+            <td>{{ booking.start_time }}</td>
+            <td>{{ booking.end_time }}</td>
+            <td>
+                <a href="{% url 'edit_booking' booking.id %}" class="btn btn-warning btn-sm">แก้ไข</a>
+                <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger btn-sm">ยกเลิกการจอง</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">ไม่มีข้อมูลการจอง</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
